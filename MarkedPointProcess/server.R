@@ -4,15 +4,18 @@ library(markdown)
 
 shinyServer ( function (input , output ) {
   
-    #output$database_index <- input$database_index
+  output$data_about <- renderText({
+    data = input$database_index
+    includeMarkdown(paste("data/", data, ".md", sep=""))
+  })
     
-    output$plot_point_pattern <- renderPlot({
-        switch(
-          input$database_index,
-          "amacrine" = plot(amacrine, markscale=1),
-          "anemones" = plot(anemones, markscale=1)
-        )
-        
+  output$plot_point_pattern <- renderPlot({
+      switch(
+        input$database_index,
+        "amacrine" = plot(amacrine, markscale=1),
+        "anemones" = plot(anemones, markscale=1)
+      )
       
-    })
+    
+  })
 })

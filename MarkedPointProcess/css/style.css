@@ -155,27 +155,27 @@ p {
 }
 
 
-.box-body > h1 {
+.shiny-html-output > h1 {
     all:revert;
     font-size: 2.5rem;
     line-height: 3.25rem;
     margin-bottom: 1.625rem
 }
 
-.box-body > h2 {
+.shiny-html-output > h2 {
     all:revert;
     font-size: 1.7rem;
     line-height: 2rem;
     margin-top: 3rem
 }
 
-.box-body > h3 {
+.shiny-html-output > h3 {
     all:revert;
     font-size: 1.4rem;
     margin-top: 2.5rem
 }
 
-.box-body > p {
+.shiny-html-output > p {
     all:revert;
     text-align: justify;
     hyphens: auto;
@@ -184,10 +184,10 @@ p {
     margin-top: 1rem
 }
 
-.box-body > li {
+.shiny-html-output > li {
     all:revert;
 }
 
-.box-body > ul {
+.shiny-html-output > ul {
     all:revert;
 }

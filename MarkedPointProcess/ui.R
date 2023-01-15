@@ -49,7 +49,7 @@ ui <- shinyUI(dashboardPage(
                     width = 12,
                     title = "about", status = "primary", solidHeader = TRUE,
                     collapsible = TRUE,
-                    includeMarkdown(paste("data/", "amacrine", ".md", sep = ""))
+                    htmlOutput("data_about")
                   )
                 ),
                 
