@@ -43,6 +43,17 @@ ui <- shinyUI(dashboardPage(
                 ),
                 
                 HTML("<p></p>"),
+                
+                fluidRow(
+                  box(
+                    width = 12,
+                    title = "about", status = "primary", solidHeader = TRUE,
+                    collapsible = TRUE,
+                    includeMarkdown(paste("data/", "amacrine", ".md", sep = ""))
+                  )
+                ),
+                
+                HTML("<p></p>"),
               
                 fluidRow(
                   HTML("<footer class='footer text-faded text-center py-5'> <div class='container'><p class='m-0 small'>Copyright © Marked Point Process <br>Made by Hamza ABDOULHOUSSEN</p></div> </footer>")
