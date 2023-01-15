@@ -34,11 +34,11 @@ ui <- shinyUI(dashboardPage(
                   width = 12,
                   title = "Load data", status = "primary", solidHeader = TRUE,
                   collapsible = TRUE,
-                  selectInput("select", h3("Data Selection"),
+                  selectInput("database_index", h3("Data Selection"),
                               choices = list(
-                                "anemones" = "anemones",
-                                "bis" = "bis"), 
-                              selected = "anemones")
+                                "amacrine" = "amacrine",
+                                "anemones" = "anemones"), 
+                              selected = 1)
                   ),
                 ),
                 
@@ -53,7 +53,11 @@ ui <- shinyUI(dashboardPage(
         ## PLOT PAGE
         tabItem(tabName = "plot",
                 h2("Plot page"),
-                
+                box(
+                  width = 12,
+                  title = "Point Pattern", background = "black",
+                  plotOutput("plot_point_pattern")
+                )
         )
         
         
