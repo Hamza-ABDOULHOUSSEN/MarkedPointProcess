@@ -37,7 +37,10 @@ ui <- shinyUI(dashboardPage(
                   selectInput("database_index", h3("Data Selection"),
                               choices = list(
                                 "amacrine" = "amacrine",
-                                "anemones" = "anemones"), 
+                                "anemones" = "anemones", 
+                                "ants" = "ants",
+                                "betacells" = "betacells",
+                                "bramclecanes" = "bramclecanes"),
                               selected = 1)
                   ),
                 ),
