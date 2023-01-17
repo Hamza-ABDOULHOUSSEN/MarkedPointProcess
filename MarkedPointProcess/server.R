@@ -15,6 +15,10 @@ shinyServer ( function (input , output ) {
     )
   }
   
+  convert_to_dataframe <- function(data) {
+    data.frame(x=data$x, y=data$y, marks=data$marks)
+  }
+  
   output$data_about <- renderText({
     data = input$database_index
     includeMarkdown(paste("data/", data, ".md", sep=""))
@@ -23,8 +27,15 @@ shinyServer ( function (input , output ) {
   output$plot_point_pattern <- renderPlot({
       database_index = input$database_index
       data = get_data(database_index)
-      print(data)
       plot(data, markscale=1, main=database_index)
+  })
+  
+  output$plot_point_pattern_ggplot <- renderPlot({
+    database_index = input$database_index
+    data = get_data(database_index)
+    dataframe = convert_to_dataframe(data)
+    # add title / main
+    ggplot(dataframe, aes(x, y)) + geom_point(aes(colour = factor(marks)))
   })
   
 })

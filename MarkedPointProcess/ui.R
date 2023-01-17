@@ -66,11 +66,17 @@ ui <- shinyUI(dashboardPage(
         
         ## PLOT PAGE
         tabItem(tabName = "plot",
+                # add full box
                 h2("Plot page"),
                 box(
                   width = 12,
                   title = "Point Pattern", background = "black",
-                  plotOutput("plot_point_pattern")
+                  plotOutput("plot_point_pattern"),
+                ),
+                box(
+                  width = 12,
+                  title = "Point Pattern", background = "black",
+                  plotOutput("plot_point_pattern_ggplot")
                 )
         )
         
