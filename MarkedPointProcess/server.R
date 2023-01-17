@@ -38,4 +38,30 @@ shinyServer ( function (input , output ) {
     ggplot(dataframe, aes(x, y)) + geom_point(aes(colour = factor(marks)))
   })
   
+  output$plot_FGJK_F <- renderPlot({
+    database_index = input$database_index
+    data = get_data(database_index)
+    plot(Fest(data), main=database_index)
+  })
+  
+  output$plot_FGJK_G <- renderPlot({
+    database_index = input$database_index
+    data = get_data(database_index)
+    plot(Gest(data), main=database_index)
+  })
+  
+  output$plot_FGJK_J <- renderPlot({
+    database_index = input$database_index
+    data = get_data(database_index)
+    plot(Jest(data), main=database_index)
+  })
+  
+  output$plot_FGJK_K <- renderPlot({
+    database_index = input$database_index
+    data = get_data(database_index)
+    plot(Kest(data), main=database_index)
+  })
+  
+  
+  
 })

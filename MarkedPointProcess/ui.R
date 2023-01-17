@@ -11,7 +11,8 @@ ui <- shinyUI(dashboardPage(
   dashboardSidebar(
     sidebarMenu(
       menuItem("Home", tabName="home", icon=icon("home")),
-      menuItem("Plot", tabName="plot", icon=icon("bar-chart-o"))
+      menuItem("Plot", tabName="plot", icon=icon("bar-chart-o")),
+      menuItem("F, G, J and K functions", tabName="plotFGJK", icon=icon("bar-chart-o"))
     )
   ),
   
@@ -66,21 +67,52 @@ ui <- shinyUI(dashboardPage(
         
         ## PLOT PAGE
         tabItem(tabName = "plot",
-                # add full box
                 h2("Plot page"),
-                box(
-                  width = 12,
-                  title = "Point Pattern", background = "black",
-                  plotOutput("plot_point_pattern"),
-                ),
-                box(
-                  width = 12,
-                  title = "Point Pattern", background = "black",
-                  plotOutput("plot_point_pattern_ggplot")
+                fluidRow(
+                  box(
+                    width = 12,
+                    title = "Point Pattern", background = "black",
+                    plotOutput("plot_point_pattern"),
+                  ),
+                  box(
+                    width = 12,
+                    title = "Point Pattern with ggplot", background = "black",
+                    plotOutput("plot_point_pattern_ggplot")
+                  )
                 )
+        ),
+        
+        
+        ## PLOT FGJK
+        tabItem(tabName = "plotFGJK",
+                h2("Plot F, G, J and K functions"),
+                fluidRow(
+                  box(
+                    width = 6,
+                    title = "F function", background = "black",
+                    plotOutput("plot_FGJK_F"),
+                  ),
+                  box(
+                    width = 6,
+                    title = "G function", background = "black",
+                    plotOutput("plot_FGJK_G"),
+                  )
+                ),
+                
+                fluidRow(
+                  box(
+                    width = 6,
+                    title = "J function", background = "black",
+                    plotOutput("plot_FGJK_J"),
+                  ),
+                  box(
+                    width = 6,
+                    title = "K function", background = "black",
+                    plotOutput("plot_FGJK_K"),
+                  ),
+                )
+                
         )
-        
-        
     
     )        
     
