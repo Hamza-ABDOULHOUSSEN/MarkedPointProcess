@@ -12,7 +12,8 @@ ui <- shinyUI(dashboardPage(
     sidebarMenu(
       menuItem("Home", tabName="home", icon=icon("home")),
       menuItem("Plot", tabName="plot", icon=icon("bar-chart-o")),
-      menuItem("F, G, J and K functions", tabName="plotFGJK", icon=icon("bar-chart-o"))
+      menuItem("F, G, J and K functions", tabName="plotFGJK", icon=icon("bar-chart-o")),
+      menuItem("Orientation Analysis", tabName="plotOrientation", icon=icon("bar-chart-o"))
     )
   ),
   
@@ -110,6 +111,20 @@ ui <- shinyUI(dashboardPage(
                     title = "K function", background = "black",
                     plotOutput("plot_FGJK_K"),
                   ),
+                )
+                
+        ),
+        
+        
+        ## ORIENTATION ANALYSIS
+        tabItem(tabName = "plotOrientation",
+                h2("Orientation Analysis"),
+                fluidRow(
+                  box(
+                    width = 12,
+                    title = "Orientation Analysis", background = "black",
+                    plotOutput("plot_orientation"),
+                  )
                 )
                 
         )

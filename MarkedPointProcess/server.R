@@ -19,6 +19,62 @@ shinyServer ( function (input , output ) {
     data.frame(x=data$x, y=data$y, marks=data$marks)
   }
   
+  find_nearest_neighbour <- function(data, p) {
+    distance <- function(data, p1, p2) {
+      sqrt( (data$x[p1]-data$x[p2])^2 + (data$y[p1]-data$y[p2])^2 )
+    }
+    
+    nearest_neighbour = 1
+    if (p == 1) {
+      nearest_neighbour = 2
+    }
+    min_dist = distance(data, p, nearest_neighbour)
+    for (k in 1:data$n) {
+      if (k != p) {
+        d = distance(data, p, k)
+        if (d < min_dist) {
+          nearest_neighbour = k
+          min_dist = d
+        }
+      }
+    }
+    
+    nearest_neighbour
+  }
+  
+  get_delta_x <- function(data, p1, p2) {
+    abs(data$x[p1] - data$x[p2])
+  }
+  
+  get_delta_y <- function(data, p1, p2) {
+    abs(data$y[p1] - data$y[p2])
+  }
+  
+  get_orientation_x <- function(data, p) {
+    nearest_neighbour = find_nearest_neighbour(data, p)
+    get_delta_x(data, p, nearest_neighbour)
+  }
+  
+  get_orientation_y <- function(data, p) {
+    nearest_neighbour = find_nearest_neighbour(data, p)
+    get_delta_y(data, p, nearest_neighbour)
+  }
+  
+  complete_orientation <- function(data) {
+    delta_x = c()
+    delta_y = c()
+    for (p in 1:data$n) {
+      delta_x = c(delta_x, get_orientation_x(data, p))
+      delta_y = c(delta_y, get_orientation_y(data, p))
+    }
+    
+    dataframe = data.frame(x=data$x, y=data$y, marks=data$marks, delta_x=delta_x, delta_y=delta_y)
+    
+    dataframe
+  }
+  
+  ### OUTPUT ###
+  
   output$data_about <- renderText({
     data = input$database_index
     includeMarkdown(paste("data/", data, ".md", sep=""))
@@ -60,6 +116,18 @@ shinyServer ( function (input , output ) {
     database_index = input$database_index
     data = get_data(database_index)
     plot(Kest(data), main=database_index)
+  })
+  
+  output$plot_orientation <- renderPlot({
+    database_index = input$database_index
+    data = get_data(database_index)
+    
+    dataframe = complete_orientation(data)
+    
+    ggplot(dataframe, aes(x, y)) +
+      geom_segment(aes(xend = x + delta_x, yend = y + delta_y),
+                   arrow = arrow(length = unit(0.1,"cm"))) +
+      geom_point()
   })
   
   
