@@ -86,15 +86,6 @@ shinyServer ( function (input , output, session) {
   
   ### OBSERVE ###
   
-  #extract_mark_labels_list <- reactive({
-  #  database_index = input$database_index
-  #  data = get_data(database_index)
-  #  extract_mark_labels_list = extract_mark_labels(data$marks)
-  #  #extract_mark_labels_list = c(2, 3, 5, 4),
-  #  extract_mark_labels_list = sort(extract_mark_labels_list, decreasing = FALSE)
-  #  extract_mark_labels_list
-  #})
-  
   database_index = reactive({input$database_index})
   
   data = reactive({get_data(database_index())})
@@ -102,7 +93,7 @@ shinyServer ( function (input , output, session) {
   extract_mark_labels_list = reactive({sort(extract_mark_labels(data()$marks), decreasing = FALSE)})
   
   observe(
-    updateSelectInput(session, "select",
+    updateSelectInput(session, "mark_selected",
                       label = "marks",
                       choices = extract_mark_labels_list(),
                       selected = extract_mark_labels_list()[1]
@@ -112,8 +103,8 @@ shinyServer ( function (input , output, session) {
   ### OUTPUT ###
   
   output$data_about <- renderText({
-    data = input$database_index
-    includeMarkdown(paste("data/", data, ".md", sep=""))
+    database_index = input$database_index
+    includeMarkdown(paste("data/", database_index, ".md", sep=""))
   })
     
   output$plot_point_pattern <- renderPlot({
@@ -126,8 +117,14 @@ shinyServer ( function (input , output, session) {
     database_index = input$database_index
     data = get_data(database_index)
     dataframe = convert_to_dataframe(data)
-    # add title / main
     ggplot(dataframe, aes(x, y)) + geom_point(aes(colour = factor(marks))) + ggtitle(database_index)
+  })
+  
+  output$plot_filter <- renderPlot({
+    database_index = input$database_index
+    data = get_data(database_index)
+    mark = input$mark_selected
+    plot(data[data$marks == mark], markscale=1, main=paste(database_index, 'for mark', mark))
   })
   
   output$plot_FGJK_F <- renderPlot({

@@ -136,13 +136,14 @@ ui <- shinyUI(dashboardPage(
                   box(
                     width = 12,
                     title = "Plot by Mark",
-                    selectInput("select", label = h3("Select box"), 
+                    selectInput("mark_selected", label = h3("Select box"), 
                                 choices = list("Choice 1" = 1, "Choice 2" = 2, "Choice 3" = 3), 
                                 selected = 1),
                   ),
                   box(
                     width = 12,
-                    title = "Orientation Analysis", background = "black"
+                    title = "Orientation Analysis", background = "black",
+                    plotOutput("plot_filter")
                   )
                 )
         )
