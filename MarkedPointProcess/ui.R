@@ -13,7 +13,8 @@ ui <- shinyUI(dashboardPage(
       menuItem("Home", tabName="home", icon=icon("home")),
       menuItem("Plot", tabName="plot", icon=icon("bar-chart-o")),
       menuItem("F, G, J and K functions", tabName="plotFGJK", icon=icon("bar-chart-o")),
-      menuItem("Orientation Analysis", tabName="plotOrientation", icon=icon("bar-chart-o"))
+      menuItem("Orientation Analysis", tabName="plotOrientation", icon=icon("bar-chart-o")),
+      menuItem("Mark Filter", tabName="markFilter", icon=icon("bar-chart-o"))
     )
   ),
   
@@ -126,7 +127,24 @@ ui <- shinyUI(dashboardPage(
                     plotOutput("plot_orientation"),
                   )
                 )
-                
+        ),
+        
+        ## MARK FILTER
+        tabItem(tabName = "markFilter",
+                h2("Orientation Analysis"),
+                fluidRow(
+                  box(
+                    width = 12,
+                    title = "Plot by Mark",
+                    selectInput("select", label = h3("Select box"), 
+                                choices = list("Choice 1" = 1, "Choice 2" = 2, "Choice 3" = 3), 
+                                selected = 1),
+                  ),
+                  box(
+                    width = 12,
+                    title = "Orientation Analysis", background = "black"
+                  )
+                )
         )
     
     )        

@@ -2,7 +2,7 @@ library ( shiny )
 library(ggplot2)
 library(markdown)
 
-shinyServer ( function (input , output ) {
+shinyServer ( function (input , output, session) {
   
   get_data <- function(database_index) {
     switch(
@@ -72,6 +72,42 @@ shinyServer ( function (input , output ) {
     
     dataframe
   }
+  
+  extract_mark_labels <- function(marks) {
+    extracted_labels = c()
+    k = 0
+    for (i in marks) {
+      if (!i %in% extracted_labels) {
+        extracted_labels = c(extracted_labels, i)
+      }
+    }
+    extracted_labels
+  }
+  
+  ### OBSERVE ###
+  
+  #extract_mark_labels_list <- reactive({
+  #  database_index = input$database_index
+  #  data = get_data(database_index)
+  #  extract_mark_labels_list = extract_mark_labels(data$marks)
+  #  #extract_mark_labels_list = c(2, 3, 5, 4),
+  #  extract_mark_labels_list = sort(extract_mark_labels_list, decreasing = FALSE)
+  #  extract_mark_labels_list
+  #})
+  
+  database_index = reactive({input$database_index})
+  
+  data = reactive({get_data(database_index())})
+  
+  extract_mark_labels_list = reactive({sort(extract_mark_labels(data()$marks), decreasing = FALSE)})
+  
+  observe(
+    updateSelectInput(session, "select",
+                      label = "marks",
+                      choices = extract_mark_labels_list(),
+                      selected = extract_mark_labels_list()[1]
+    )
+  )
   
   ### OUTPUT ###
   
