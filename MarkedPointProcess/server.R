@@ -91,7 +91,7 @@ shinyServer ( function (input , output ) {
     data = get_data(database_index)
     dataframe = convert_to_dataframe(data)
     # add title / main
-    ggplot(dataframe, aes(x, y)) + geom_point(aes(colour = factor(marks)))
+    ggplot(dataframe, aes(x, y)) + geom_point(aes(colour = factor(marks))) + ggtitle(database_index)
   })
   
   output$plot_FGJK_F <- renderPlot({
@@ -127,7 +127,7 @@ shinyServer ( function (input , output ) {
     ggplot(dataframe, aes(x, y)) +
       geom_segment(aes(xend = x + delta_x, yend = y + delta_y),
                    arrow = arrow(length = unit(0.1,"cm"))) +
-      geom_point()
+      geom_point() + labs(title=database_index)
   })
   
   
