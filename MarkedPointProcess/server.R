@@ -99,6 +99,20 @@ shinyServer ( function (input , output, session) {
                       selected = extract_mark_labels_list()[1]
     )
   )
+  observe(
+    updateSelectInput(session, "mark_selected_i",
+                      label = "marks",
+                      choices = extract_mark_labels_list(),
+                      selected = extract_mark_labels_list()[1]
+    )
+  )
+  observe(
+    updateSelectInput(session, "mark_selected_j",
+                      label = "marks",
+                      choices = extract_mark_labels_list(),
+                      selected = extract_mark_labels_list()[1]
+    )
+  )
   
   ### OUTPUT ###
   
