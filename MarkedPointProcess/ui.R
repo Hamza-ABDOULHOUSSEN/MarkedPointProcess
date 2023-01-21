@@ -171,7 +171,7 @@ ui <- shinyUI(dashboardPage(
                   box(
                     width = 12,
                     title = "Orientation Analysis", background = "black",
-                    #plotOutput("plot_Kest")
+                    plotOutput("plot_Kest")
                   )
                 )
         )
