@@ -12,6 +12,7 @@
     - [Home](#home)
     - [Plot](#plot)
     - [Histogram](#histogram)
+    - [Density](#density)
     - [F G J and K Functions](#f-g-j-and-k-functions)
     - [Orientation analysis](#orientation-analysis)
     - [Mark Filter](#mark-filter)
@@ -61,6 +62,9 @@ Plot the point pattern and the marks
 
 ### Histogram
 See the number of points for each mark
+
+### Density
+See the density in the window
 
 ### F G J and K Functions
 See spatial statistice estimation of F G J and K Functions
