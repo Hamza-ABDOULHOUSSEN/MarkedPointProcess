@@ -16,6 +16,7 @@ ui <- shinyUI(dashboardPage(
       menuItem("F, G, J and K functions", tabName="plotFGJK", icon=icon("bar-chart-o")),
       menuItem("Orientation Analysis", tabName="plotOrientation", icon=icon("bar-chart-o")),
       menuItem("Mark Filter", tabName="markFilter", icon=icon("bar-chart-o")),
+      menuItem("K-means", tabName="k_means", icon=icon("bar-chart-o")),
       menuItem("Marked K Function", tabName="Kest", icon=icon("bar-chart-o"))
     )
   ),
@@ -162,6 +163,41 @@ ui <- shinyUI(dashboardPage(
                 )
         ),
         
+        ## K - MEANS
+        tabItem(tabName = "k_means",
+                h2("K - means"),
+                fluidRow(
+                  box(
+                    width = 12,
+                    background = "black",
+                    column(6,
+                             sliderInput("centers", label = h3("number of clusters"), min = 1, max = 20, value = 5)
+                    ),
+                    column(6,
+                             sliderInput("iterations", label = h3("number of iterations"), min = 1, max = 100, value = 10)
+                    ),
+                    
+                    column(12,
+                             selectInput("algorithm", label = h3("Algorithm"),
+                                         choices = list("Hartigan-Wong"="Hartigan-Wong", "Lloyd"="Lloyd", 
+                                                        "Forgy"="Forgy","MacQueen"="MacQueen"), 
+                                         selected = "Lloyd")
+                    )
+                  ),
+                  
+                  box(
+                    width = 12,
+                    title = "Original Plot", background = "black",
+                    plotOutput("plot_orig_scatter_plot")
+                  ),
+                  box(
+                    width = 12,
+                    title = "K-means cluster Plot", background = "black",
+                    plotOutput("plot_k_means")
+                  )
+                )
+        ),
+        
         ## Kest FUNCTION
         tabItem(tabName = "Kest",
                 h2("Marked K Function"),
@@ -183,7 +219,7 @@ ui <- shinyUI(dashboardPage(
                   
                   box(
                     width = 12,
-                    title = "Orientation Analysis", background = "black",
+                    title = "Kest", background = "black",
                     plotOutput("plot_Kest")
                   )
                 )

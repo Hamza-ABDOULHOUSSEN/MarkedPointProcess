@@ -259,6 +259,20 @@ shinyServer ( function (input , output, session) {
     
   })
   
+  output$plot_orig_scatter_plot <- renderPlot({
+    database_index = input$database_index
+    data = get_data(database_index)
+    dataframe = convert_to_dataframe(data)
+    ggplot(dataframe, aes(x, y)) + geom_point(aes(colour = factor(marks))) + ggtitle(database_index)
+  })
+  
+  output$plot_k_means <- renderPlot({
+    database_index = input$database_index
+    data = get_data(database_index)
+    dataframe = convert_to_dataframe(data)
+    ggplot(dataframe, aes(x, y)) + geom_point(aes(colour = factor(marks))) + ggtitle(database_index)
+  })
+  
   
   
 })
