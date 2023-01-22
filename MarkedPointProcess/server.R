@@ -100,40 +100,6 @@ shinyServer ( function (input , output, session) {
     sqrt( (data$x[p1]-data$x[p2])^2 + (data$y[p1]-data$y[p2])^2 )
   }
   
-  
-  Mark_Kest <- function(data, i, j, r) {
-    acc = 0
-    for (pi in 1:data$n) {
-      for (pj in 1:data$n) {
-        if (pi != pj) {
-          if ((data$marks[pi] == i) && (data$marks[pj] == j) && (distance(data, pi, pj) <= r)) {
-            if (inter_area_W(data, pi-pj) != 0) {
-              acc = acc + 1/inter_area_W(data, pi-pj)
-            }
-          }
-        }
-      }
-    }
-    acc
-  }
-  
-  make_r_list <- function(data) {
-    n = 10
-    range = min( abs(data$window$xrange[1] - data$window$xrange[2]), abs(data$window$yrange[1] - data$window$yrange[2]))
-    r_list = seq(0, range, length.out=n)
-    r_list
-  }
-  
-  make_K_est_plot <- function(data, i, j) {
-    r_list = make_r_list(data)
-    k_list = c()
-    for (r in r_list) {
-      k = Mark_Kest(data, i, j, r)
-      k_list = c(k_list, r)
-    }
-    k_list
-  }
-  
   category_to_numeric <- function(dataframe) {
     sorted_marks = factor(dataframe$marks)
     extract_mark_labels_list = extract_mark_labels(dataframe$marks)
@@ -248,21 +214,6 @@ shinyServer ( function (input , output, session) {
       geom_segment(aes(xend = x + delta_x, yend = y + delta_y),
                    arrow = arrow(length = unit(0.1,"cm"))) +
       geom_point() + labs(title=database_index)
-  })
-  
-  output$plot_Kest <- renderPlot({
-    database_index = input$database_index
-    data = get_data(database_index)
-    i = input$mark_selected_i
-    j = input$mark_selected_j
-    r_list = make_r_list(data)
-    k_list = make_K_est_plot(data, i, j)
-    
-    linked_list = list(r=r_list, K_ij=k_list)
-    dataframe <- data.frame(linked_list)
-    
-    ggplot(dataframe, aes(r, K_ij)) + geom_point() + ggtitle(database_index)
-    
   })
   
   output$plot_orig_scatter_plot <- renderPlot({

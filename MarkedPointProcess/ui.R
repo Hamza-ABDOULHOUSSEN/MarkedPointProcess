@@ -17,8 +17,7 @@ ui <- shinyUI(dashboardPage(
       menuItem("F, G, J and K functions", tabName="plotFGJK", icon=icon("bar-chart-o")),
       menuItem("Orientation Analysis", tabName="plotOrientation", icon=icon("bar-chart-o")),
       menuItem("Mark Filter", tabName="markFilter", icon=icon("bar-chart-o")),
-      menuItem("K-means", tabName="k_means", icon=icon("bar-chart-o")),
-      menuItem("Marked K Function", tabName="Kest", icon=icon("bar-chart-o"))
+      menuItem("K-means", tabName="k_means", icon=icon("bar-chart-o"))
     )
   ),
   
@@ -208,33 +207,6 @@ ui <- shinyUI(dashboardPage(
                     width = 12,
                     title = "K-means cluster Plot", background = "black",
                     plotOutput("plot_k_means")
-                  )
-                )
-        ),
-        
-        ## Kest FUNCTION
-        tabItem(tabName = "Kest",
-                h2("Marked K Function"),
-                fluidRow(
-                  column(6,
-                    box(
-                      title = "Select i",
-                      selectInput("mark_selected_i", label = h3("Select i mark"), 
-                                  choices = list("Choice 1" = 1, "Choice 2" = 2, "Choice 3" = 3), 
-                                  selected = 1)
-                    )),
-                    column(6,
-                      box(
-                      title = "Select j",
-                      selectInput("mark_selected_j", label = h3("Select j mark"), 
-                                  choices = list("Choice 1" = 1, "Choice 2" = 2, "Choice 3" = 3), 
-                                  selected = 1)
-                    )),
-                  
-                  box(
-                    width = 12,
-                    title = "Kest", background = "black",
-                    plotOutput("plot_Kest")
                   )
                 )
         )
