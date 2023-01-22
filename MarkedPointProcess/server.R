@@ -81,7 +81,7 @@ shinyServer ( function (input , output, session) {
         extracted_labels = c(extracted_labels, i)
       }
     }
-    extracted_labels
+    sort(extracted_labels, decreasing = FALSE)
   }
   
   inter_area_W <- function(data, p) {
@@ -134,13 +134,22 @@ shinyServer ( function (input , output, session) {
     k_list
   }
   
+  category_to_numeric <- function(dataframe) {
+    sorted_marks = factor(dataframe$marks)
+    extract_mark_labels_list = extract_mark_labels(data$marks)
+    ranks <- rank(-table(extract_mark_labels_list), ties.method="first")
+    DF <- data.frame(category=sorted_marks, rank=ranks[as.character(sorted_marks)])
+    dataframe$marks = DF$rank
+    dataframe
+  }
+  
   ### OBSERVE ###
   
   database_index = reactive({input$database_index})
   
   data = reactive({get_data(database_index())})
   
-  extract_mark_labels_list = reactive({sort(extract_mark_labels(data()$marks), decreasing = FALSE)})
+  extract_mark_labels_list = reactive({extract_mark_labels(data()$marks)})
   
   observe(
     updateSelectInput(session, "mark_selected",
