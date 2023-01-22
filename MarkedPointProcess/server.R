@@ -136,7 +136,7 @@ shinyServer ( function (input , output, session) {
   
   category_to_numeric <- function(dataframe) {
     sorted_marks = factor(dataframe$marks)
-    extract_mark_labels_list = extract_mark_labels(data$marks)
+    extract_mark_labels_list = extract_mark_labels(dataframe$marks)
     ranks <- rank(-table(extract_mark_labels_list), ties.method="first")
     DF <- data.frame(category=sorted_marks, rank=ranks[as.character(sorted_marks)])
     dataframe$marks = DF$rank
@@ -270,7 +270,23 @@ shinyServer ( function (input , output, session) {
     database_index = input$database_index
     data = get_data(database_index)
     dataframe = convert_to_dataframe(data)
-    ggplot(dataframe, aes(x, y)) + geom_point(aes(colour = factor(marks))) + ggtitle(database_index)
+    
+    # conversion to numerical marks
+    dataframe = category_to_numeric(dataframe)
+    
+    # parameter
+    centers = input$centers
+    iter_max = input$iterations
+    algorithm = input$algorithm
+    
+    # kmeans
+    kmeans_result = kmeans(dataframe, centers=centers, iter.max=iter_max, algorithm=algorithm)
+    
+    # result
+    dataframe['clusters'] = kmeans_result$cluster
+    
+    # plot clusters
+    ggplot(dataframe, aes(x, y)) + geom_point(aes(colour = factor(clusters))) + ggtitle(paste('cluster for ', database_index))
   })
   
   
