@@ -183,7 +183,7 @@ shinyServer ( function (input , output, session) {
   output$plot_point_pattern <- renderPlot({
       database_index = input$database_index
       data = get_data(database_index)
-      plot(data, markscale=1, main=database_index)
+      plot(data, markscale=1, main=database_index, cols="blue", cex=0.5)
   })
   
   output$plot_point_pattern_ggplot <- renderPlot({
@@ -199,6 +199,12 @@ shinyServer ( function (input , output, session) {
     dataframe = convert_to_dataframe(data)
     couleur = "#F8766D"
     ggplot(dataframe, aes(marks)) + geom_histogram(data=dataframe, fill=couleur, bins=30, stat="count") + geom_vline(xintercept = mean(dataframe$marks), colour = couleur, linetype = "longdash")
+  })
+  
+  output$plot_density <- renderPlot({
+    database_index = input$database_index
+    data = get_data(database_index)
+    plot(density(data), main=database_index)
   })
   
   output$plot_filter <- renderPlot({
