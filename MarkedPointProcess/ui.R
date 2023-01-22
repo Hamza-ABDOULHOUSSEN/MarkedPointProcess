@@ -12,6 +12,7 @@ ui <- shinyUI(dashboardPage(
     sidebarMenu(
       menuItem("Home", tabName="home", icon=icon("home")),
       menuItem("Plot", tabName="plot", icon=icon("bar-chart-o")),
+      menuItem("Histogram", tabName="histogram", icon=icon("bar-chart-o")),
       menuItem("F, G, J and K functions", tabName="plotFGJK", icon=icon("bar-chart-o")),
       menuItem("Orientation Analysis", tabName="plotOrientation", icon=icon("bar-chart-o")),
       menuItem("Mark Filter", tabName="markFilter", icon=icon("bar-chart-o")),
@@ -81,6 +82,18 @@ ui <- shinyUI(dashboardPage(
                     width = 12,
                     title = "Point Pattern with ggplot", background = "black",
                     plotOutput("plot_point_pattern_ggplot")
+                  )
+                )
+        ),
+        
+        ## HISTOGRAM
+        tabItem(tabName = "histogram",
+                h2("Histogram"),
+                fluidRow(
+                  box(
+                    width = 12,
+                    title = "Mark Histogram", background = "black",
+                    plotOutput("plot_histo"),
                   )
                 )
         ),

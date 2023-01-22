@@ -184,6 +184,14 @@ shinyServer ( function (input , output, session) {
     ggplot(dataframe, aes(x, y)) + geom_point(aes(colour = factor(marks))) + ggtitle(database_index)
   })
   
+  output$plot_histo <- renderPlot({
+    database_index = input$database_index
+    data = get_data(database_index)
+    dataframe = convert_to_dataframe(data)
+    couleur = "#F8766D"
+    ggplot(dataframe, aes(marks)) + geom_histogram(data=dataframe, fill=couleur, bins=30, stat="count") + geom_vline(xintercept = mean(dataframe$marks), colour = couleur, linetype = "longdash")
+  })
+  
   output$plot_filter <- renderPlot({
     database_index = input$database_index
     data = get_data(database_index)
